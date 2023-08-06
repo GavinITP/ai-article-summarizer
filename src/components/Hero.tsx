@@ -22,7 +22,7 @@ const Hero = () => {
         </span>
       </h1>
 
-      <h2 className="text-center max-w-[60ch] text-md md:text-lg text-gray-300">
+      <h2 className="text-center max-w-[60ch] text-md md:text-lg text-gray-400">
         Make summarizing articles easy using OpenAI GPT-4. It effortlessly picks
         out key points from complex content. Simplify your reading by turning
         articles into short summaries with OpenAI GPT-4's help
