@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   fill="none"
+   fill="#fff"
    shapeRendering="geometricPrecision"
    stroke="currentColor"
    strokeLinecap="round"
@@ -21,7 +21,7 @@
   <sodipodi:namedview
      id="namedview6"
      pagecolor="#ffffff"
-     bordercolor="#000000"
+     bordercolor="#fff"
      borderopacity="0.25"
      inkscape:showpageshadow="2"
      inkscape:pageopacity="0.0"

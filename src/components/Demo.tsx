@@ -2,9 +2,14 @@ import { useEffect, useState } from "react";
 import { copy, linkIcon, loader, tick } from "../assets";
 import { useLazyGetSummaryQuery } from "../services/article";
 
-const Demo = () => {
-  const [article, setArticle] = useState({ url: "", summary: "" });
+interface Article {
+  url: string;
+  summary: string;
+}
 
+const Demo = () => {
+  const [article, setArticle] = useState<Article>({ url: "", summary: "" });
+  const [allArticles, setAllArticles] = useState<Article[]>([]);
   const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery();
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
@@ -13,11 +18,22 @@ const Demo = () => {
 
     if (data?.summary) {
       const newArticle = { ...article, summary: data.summary };
-      setArticle(newArticle);
+      setArticle({ ...article, summary: data.summary });
+
+      const updatedArticles = [newArticle, ...allArticles];
+      setAllArticles(updatedArticles);
+
+      localStorage.setItem("articles", JSON.stringify(updatedArticles));
     }
   };
 
-  useEffect(() => {});
+  useEffect(() => {
+    const localArticles = JSON.parse(
+      localStorage.getItem("articles") as string
+    );
+
+    if (localArticles) setAllArticles(localArticles);
+  }, []);
 
   return (
     <section className="mt-16 w-full max-w-xl">
@@ -52,6 +68,22 @@ const Demo = () => {
         </form>
 
         {/* Browse URL history */}
+        <div className="flex flex-col gap-2 max-h-[250px] overflow-y-scroll my-4">
+          {allArticles.map((article, index) => (
+            <div
+              key={"link-" + index}
+              onClick={() => setArticle(article)}
+              className="flex items-center py-2 px-4 gap-2 cursor-pointer bg-gray-700 rounded-lg"
+            >
+              <img
+                src={copy}
+                alt="copy icon"
+                className="w-8 h-8 object-contain"
+              />
+              <p className="text-blue-300">{article.url}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Results */}
